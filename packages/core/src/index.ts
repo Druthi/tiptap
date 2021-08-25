@@ -43,7 +43,7 @@ export { default as posToDOMRect } from './helpers/posToDOMRect'
 if(!Array.prototype.hasOwnProperty('flat')) {
   Object.defineProperty(Array.prototype, 'flat', {
     value: function(depth = 1) {
-      return this.reduce(function (flat, toFlatten) {
+      return this.reduce(function (flat:any, toFlatten:any) {
         return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
       }, []);
     }
