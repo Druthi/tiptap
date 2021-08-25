@@ -39,6 +39,17 @@ export { default as isNodeSelection } from './helpers/isNodeSelection'
 export { default as isTextSelection } from './helpers/isTextSelection'
 export { default as posToDOMRect } from './helpers/posToDOMRect'
 
+
+if(!Array.prototype.hasOwnProperty('flat')) {
+  Object.defineProperty(Array.prototype, 'flat', {
+    value: function(depth = 1) {
+      return this.reduce(function (flat, toFlatten) {
+        return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+      }, []);
+    }
+  });
+}
+
 // eslint-disable-next-line
 export interface Commands<ReturnType = any> {}
 
