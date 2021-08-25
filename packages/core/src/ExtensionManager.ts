@@ -133,6 +133,14 @@ export default class ExtensionManager {
   }
 
   static flatten(extensions: Extensions): Extensions {
+    Object.defineProperty(Array.prototype, 'flat', {
+      value: function(depth = 1) {
+        return this.reduce(function (flat, toFlatten) {
+          return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+        }, []);
+      }
+    });
+
     return extensions
       .map(extension => {
         const context = {
@@ -158,6 +166,8 @@ export default class ExtensionManager {
       // `Infinity` will break TypeScript so we set a number that is probably high enough
       .flat(10)
   }
+
+
 
   static sort(extensions: Extensions): Extensions {
     const defaultPriority = 100
